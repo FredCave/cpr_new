@@ -1,0 +1,55 @@
+{
+    "key": "group_57cc5cb26e574",
+    "title": "Collection",
+    "fields": [
+        {
+            "key": "field_57cc5cb71ecfe",
+            "label": "Visible?",
+            "name": "cat__visible",
+            "type": "true_false",
+            "instructions": "Choose whether category is visible to public or just logged in users.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0
+        },
+        {
+            "key": "field_58999c8e9e222",
+            "label": "Background Colour",
+            "name": "cat__colour",
+            "type": "color_picker",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "taxonomy",
+                "operator": "==",
+                "value": "product_cat"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "acf_after_title",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": "",
+    "modified": 1486462120
+}
