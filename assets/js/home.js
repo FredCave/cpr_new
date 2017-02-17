@@ -30,7 +30,7 @@ var Home = {
 		var firstLi = $("#landing_page ul li:first-child");
 		firstLi.addClass("visible");
 		// GET SRC FROM IMAGECALC
-		var src = this.imageCalc( firstLi.find(".bg_image") );
+		var src = Page.imageCalc( firstLi.find(".bg_image") );
 		// WAIT UNTIL SRC LOADED
 		$('<img/>').attr('src', src ).load(function() {
 			$(this).remove();
@@ -41,7 +41,7 @@ var Home = {
 			// LOAD ALL OTHER IMAGES
 			$("#landing_page ul li").not( firstLi ).each( function() {
 				var thisImg = $(this).find(".bg_image")
-				thisImg.css('background-image', "url('" + Home.imageCalc( thisImg ) + "')").removeClass("blurred");
+				thisImg.css('background-image', "url('" + Page.imageCalc( thisImg ) + "')").removeClass("blurred");
 			});
 		});
 
@@ -107,47 +107,6 @@ var Home = {
 	    		this.landingSlideBack();	    		
 	    	}
 	    }
-
-	},
-
-	imageCalc: function ( image ) {
-
-		console.log("Home.imageCalc");
-
-		// GET IMAGE WIDTH
-		var imgW,
-			currSrc;
-		if ( image.hasClass("bg_image") ) {
-			currSrc = image.css("background-image");
-			imgW = image.width();
-		} else {
-			currSrc = image.attr("src");
-			// imgW = image.height(); // IMAGE HEIGHT FOR PORTRAIT IMAGES
-			// TMP: HEIGHT = 67VW
-			imgW = this.winH * 0.67;
-		}
-
-		console.log( 122, imgW, currSrc );
-
-		// CHANGE POINTS: THM = 300 / MED = 600 / LRG = 900 / XLG = 1280 / LPG = 2048
-		if ( imgW > 300 && imgW <= 600 ) {
-			newSrc = image.attr("data-med");
-		} else if ( imgW > 600 && imgW <= 900 ) {
-			newSrc = image.attr("data-lrg");
-		} else if ( imgW > 900 && imgW <= 1280 ) {
-			newSrc = image.attr("data-xlg");
-		} else if ( imgW > 1280 && imgW <= 2048 ) {
-			newSrc = image.attr("data-lnd");
-		} else { // THUMB
-			newSrc = image.attr("data-thm");
-		}
-		// IF NEW SRC DIFFERENT: RENDER 
-		// console.log( 43, newSrc, currSrc);
-		if ( newSrc !== currSrc ) {
-			return newSrc;
-		} else {
-			return currSrc;
-		}
 
 	},
 
@@ -242,8 +201,7 @@ var Home = {
 			$("#landing_page").addClass("landing_hidden").animate({
 				marginTop: "-100vh"
 			}, 1000, function(){
-				// SHOW BOTTOM NAV
-				// $("#secondary_nav").fadeIn();			
+			
 			});
 
 			this.landingVis = false;

@@ -50,11 +50,11 @@ function cpr_get_colls () {
 			</ul>
 
 			<p class="menu_link">
-				<a href="<?php bloginfo(); ?>/_culture">Culture</a>
+				<a href="<?php bloginfo( 'url' ); ?>/culture">Culture</a>
 			</p>
 
 			<p class="menu_link">
-				<a href="<?php bloginfo(); ?>/_information">About</a>
+				<a href="<?php bloginfo( 'url' ); ?>/information">About</a>
 			</p>
 
 			<!-- SOCIAL MEDIA -->

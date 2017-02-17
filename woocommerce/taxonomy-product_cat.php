@@ -20,6 +20,8 @@ $slug = $page_obj->slug;
 
 <div class="collection page_collection page" data-collection="<?php echo $slug; ?>">
 
+	<ul id="filtered_products"></ul>
+
 	<?php if ( have_posts() ) : ?>
 
 		<?php woocommerce_product_loop_start(); ?>

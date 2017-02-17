@@ -20,27 +20,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 					if ( $i === 0 ) {
 						$image = get_sub_field("product_image");
 						if( !empty($image) ): 
-				            $thumb = $image['sizes'][ "thumbnail" ]; // 200x300
-				            $medium = $image['sizes'][ "medium" ]; // 400x600
-				            $large = $image['sizes'][ "large" ]; // 533x800
-				            $extralarge = $image['sizes'][ "extra-large" ]; // 853x1280
-				            $width = $image['sizes'][ "thumbnail-width" ]; 
-				            $height = $image['sizes'][ "thumbnail-height" ]; 
-				            ?>
+
+				        	$width = $image["width"];
+				        	$height = $image["height"];
+				            $thumb = $image["sizes"][ "thumbnail" ]; // 300
+				            $medium = $image["sizes"][ "medium" ]; // 600
+				            $large = $image["sizes"][ "large" ]; // 800
+				            $extralarge = $image["sizes"][ "extra-large" ]; // 1024
+				            $landingpage = $image["sizes"]["landing-page"]; // 2048
+				        	?>
+
 							<img 
-							width="<?php echo $width; ?>"  
-							height="<?php echo $height; ?>"  
-						    src="<?php echo $thumb; ?>" 
-						    data-sizes="auto"
-						    data-src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" 
-						    data-srcset="<?php echo $thumb; ?> 200w,
-						    	<?php echo $medium; ?> 400w, 
-								<?php echo $large; ?> 600w,
-								<?php echo $extralarge; ?> 850w"   
-							class="lazyload single_additional_image" 
-							/>		
-						<?php
-						endif;
+							width="<?php echo $width; ?>" 
+							height="<?php echo $height; ?>" 
+						    src="" 
+						    data-thm="<?php echo $thumb; ?>" 
+						    data-med="<?php echo $medium; ?>" 
+						    data-lrg="<?php echo $large; ?>" 
+						    data-xlg="<?php echo $extralarge; ?>" 
+						    data-lnd="<?php echo $landingpage; ?>" 
+							class="single_additional_image <?php echo $class; ?>" />	
+
+						<?php endif;
 					} 
 					$i++;			        
 				endwhile;
@@ -53,27 +54,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 				while ( have_rows("product_images") ) : the_row();
 					$image = get_sub_field("product_image");
 					if( !empty($image) ): 
-			            $thumb = $image['sizes'][ "thumbnail" ]; // 200x300
-			            $medium = $image['sizes'][ "medium" ]; // 400x600
-			            $large = $image['sizes'][ "large" ]; // 533x800
-			            $extralarge = $image['sizes'][ "extra-large" ]; // 683x1024
-			            $width = $image['sizes'][ "thumbnail-width" ]; 
-			            $height = $image['sizes'][ "thumbnail-height" ]; 
-			            ?>
+
+			        	$width = $image["width"];
+			        	$height = $image["height"];
+			            $thumb = $image["sizes"][ "thumbnail" ]; // 300
+			            $medium = $image["sizes"][ "medium" ]; // 600
+			            $large = $image["sizes"][ "large" ]; // 800
+			            $extralarge = $image["sizes"][ "extra-large" ]; // 1024
+			            $landingpage = $image["sizes"]["landing-page"]; // 2048
+			        	?>
+
 						<img 
-						width="<?php echo $width; ?>"  
-						height="<?php echo $height; ?>"  
-					    src="<?php echo $thumb; ?>" 
-					    data-sizes="auto"
-					    data-src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" 
-					    data-srcset="<?php echo $thumb; ?> 200w,
-						    	<?php echo $medium; ?> 400w, 
-								<?php echo $large; ?> 600w,
-								<?php echo $extralarge; ?> 800w"   
-						class="lazyload single_additional_image" 
-						/>		
-					<?php
-					endif;		        
+						width="<?php echo $width; ?>" 
+						height="<?php echo $height; ?>" 
+					    src="" 
+					    data-thm="<?php echo $thumb; ?>" 
+					    data-med="<?php echo $medium; ?>" 
+					    data-lrg="<?php echo $large; ?>" 
+					    data-xlg="<?php echo $extralarge; ?>" 
+					    data-lnd="<?php echo $landingpage; ?>" 
+						class="single_additional_image <?php echo $class; ?>" />	
+
+					<?php endif;		        
 				endwhile;
 			endif; ?>
 		</div>

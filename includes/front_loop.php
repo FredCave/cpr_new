@@ -29,6 +29,9 @@
 <?php // product_filter(); ?>
 
 <div class="collection front_collection" data-collection="">
+
+	<ul id="filtered_products"></ul>
+
 	<ul>
 		<?php if ( $the_query->have_posts() ) : ?>
 

@@ -3,7 +3,45 @@
     "title": "News",
     "fields": [
         {
-            "key": "field_5714fb5eca8c6",
+            "key": "field_58a724d0bd257",
+            "label": "Extract",
+            "name": "news_extract",
+            "type": "wysiwyg",
+            "instructions": "This is a short extract from the text that is visible on the \"Culture\" page.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
+        },
+        {
+            "key": "field_58a7261c4b687",
+            "label": "Main Text",
+            "name": "news_main_text",
+            "type": "wysiwyg",
+            "instructions": "If this field is left empty, no \"Read more\" option will be shown and only what is on the \"Culture\" page will be visible.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
+        },
+        {
+            "key": "field_57151ced3feea",
             "label": "Images",
             "name": "news_images",
             "type": "repeater",
@@ -16,13 +54,13 @@
                 "id": ""
             },
             "collapsed": "",
-            "min": "",
-            "max": "",
+            "min": 0,
+            "max": 0,
             "layout": "table",
             "button_label": "Add Image",
             "sub_fields": [
                 {
-                    "key": "field_5714fb7dca8c7",
+                    "key": "field_57151cfe3feeb",
                     "label": "Image",
                     "name": "news_image",
                     "type": "image",
@@ -80,6 +118,7 @@
     "instruction_placement": "label",
     "hide_on_screen": [
         "permalink",
+        "the_content",
         "excerpt",
         "custom_fields",
         "discussion",
@@ -96,5 +135,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1460992928
+    "modified": 1487349861
 }

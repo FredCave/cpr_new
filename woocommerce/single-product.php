@@ -10,9 +10,7 @@ get_sidebar();
 <?php product_filter(); ?>
 
 <!-- LOADING -->
-<div id="loading">
-	<img src="<?php bloginfo( 'template_url' ); ?>/img/loading.gif" />
-</div>
+<div class="spinner"></div>
 
 <div id="single_page" class="single_page page">
 

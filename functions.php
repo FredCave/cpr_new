@@ -97,6 +97,36 @@ function create_post_types() {
 add_image_size( 'extra-large', 1280, 1280 ); 
 add_image_size( 'landing-page', 2048, 2048 ); 
 
+// IMAGE OBJECT
+
+function cpr_image_object ( $image ) {
+
+    if( !empty($image) ): 
+
+        $width = $image["width"];
+        $height = $image["height"];
+        $thumb = $image["sizes"][ "thumbnail" ]; // 300
+        $medium = $image["sizes"][ "medium" ]; // 600
+        $large = $image["sizes"][ "large" ]; // 800
+        $extralarge = $image["sizes"][ "extra-large" ]; // 1024
+        $landingpage = $image["sizes"]["landing-page"]; // 2048
+        ?>
+
+        <img 
+        width="<?php echo $width; ?>" 
+        height="<?php echo $height; ?>" 
+        src="<?php echo $thumb; ?>" 
+        data-thm="<?php echo $thumb; ?>" 
+        data-med="<?php echo $medium; ?>" 
+        data-lrg="<?php echo $large; ?>" 
+        data-xlg="<?php echo $extralarge; ?>" 
+        data-lnd="<?php echo $landingpage; ?>" 
+        class="<?php // echo $class; ?>" />    
+
+    <?php endif;
+
+}
+
 // Set max. number of products per page (80)
 add_filter( 'loop_shop_per_page', create_function( '$cols', 'return 80;' ), 20 );
 
@@ -189,7 +219,7 @@ function product_filter () { ?>
     <ul id="collection_filter" data-page="collection">
         <?php $tags = get_terms ( "product_tag", "orderby=name" ); 
         foreach ( $tags as $tag ) { ?>
-            <li><a class="filter" id="<?php echo $tag->slug; ?>" href=""><?php echo $tag->name; ?></a><img class="clear_filter" src="<?php bloginfo( 'template_url' ); ?>/img/filter_clear.png" /></li>
+            <li><a class="filter" id="<?php echo $tag->slug; ?>" href=""><?php echo $tag->name; ?></a><img class="clear_filter" src="<?php bloginfo( 'template_url' ); ?>/img/filter_clear.svg" /></li>
         <?php } ?>
     </ul>
     <?php

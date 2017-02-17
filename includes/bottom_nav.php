@@ -1,24 +1,16 @@
-<div id="menu_bottom">
+<div id="menu_bottom" class="<?php if ( is_front_page() ) { echo "hide"; } ?>">
 
-	<!-- PRIMARY NAV CLOSE NAV -->
-	<div id="nav_close">
-		<img src="<?php bloginfo( 'template_url' ); ?>/img/filter_clear.png" />
-	</div>
-
-	<!-- SECONDARY NAV -->
-	<div id="secondary_nav" class="<?php if ( is_front_page() ) { echo "hide"; } ?>">
+	<div id="secondary_nav">
+		
 		<ul>
 			<!-- FILTER -->
-			<?php if ( is_product_category() || is_front_page() ) { ?>
+			<?php if ( is_product_category() || is_front_page() || is_singular( $post_types = 'product' ) ) { ?>
 				<li id="secondary_filter">
-					<span id="filter_toggle">Filter</span>
-					<img class="clear_filter" src="<?php bloginfo( 'template_url' ); ?>/img/filter_clear.png" />
-				</li>	
-			<?php } else { ?>
-				<li id="secondary_filter">
-					<span id="filter_toggle" class="hide_filter">Filter</span>
-					<img class="clear_filter" src="<?php bloginfo( 'template_url' ); ?>/img/filter_clear.png" />
+					<span id="filter_toggle" class="">Filter</span>
+					<img class="clear_filter" src="<?php bloginfo( 'template_url' ); ?>/img/filter_clear.svg" />
 				</li>
+
+				<?php echo product_filter(); ?>
 			<?php } ?>
 
 			<!-- ACCOUNT -->	
@@ -34,6 +26,7 @@
 				</div>
 			</li>
 		</ul>
+
 	</div>
 
 </div>
