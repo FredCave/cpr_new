@@ -41,8 +41,8 @@ add_action('wp_print_styles', 'remove_assets', 99999);
 function enqueue_cpr_scripts() {
     // STOPS WORDPRESS LOADING JQUERY
     wp_deregister_script( 'jquery' );
-    wp_register_script('jquery', '', '', '', true);
-    // wp_register_script( 'jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js');
+    // wp_register_script('jquery', '', '', '', true);
+    wp_register_script( 'jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js');
     // wp_register_script( 'jquery', get_template_directory_uri() . '/js/jquery.min.js');
     // wp_enqueue_script( 'jquery' );  
     
@@ -99,7 +99,9 @@ add_image_size( 'landing-page', 2048, 2048 );
 
 // IMAGE OBJECT
 
-function cpr_image_object ( $image ) {
+function cpr_image_object ( $image, $class ) {
+
+    // var_dump($image);
 
     if( !empty($image) ): 
 
@@ -110,6 +112,10 @@ function cpr_image_object ( $image ) {
         $large = $image["sizes"][ "large" ]; // 800
         $extralarge = $image["sizes"][ "extra-large" ]; // 1024
         $landingpage = $image["sizes"]["landing-page"]; // 2048
+        $additional_class = " landscape";
+        if ( $width <= $height ) {
+            $additional_class = " portrait";
+        }
         ?>
 
         <img 
@@ -121,7 +127,7 @@ function cpr_image_object ( $image ) {
         data-lrg="<?php echo $large; ?>" 
         data-xlg="<?php echo $extralarge; ?>" 
         data-lnd="<?php echo $landingpage; ?>" 
-        class="<?php // echo $class; ?>" />    
+        class="<?php echo $class . $additional_class; ?>" />    
 
     <?php endif;
 
@@ -174,10 +180,10 @@ function cpr_product_column_related ( $column, $postid ) {
 function cpr_set_bg ( $page_obj ) {
     $bg_color = "#efebe8";
     // IF COLLECTION OR SINGLE OR HOME
-    if ( is_archive() || is_single() || is_home() ) {
+    if ( is_archive() || is_singular("product") || is_home() ) {
         if ( is_archive() ) {
             $cat_id = $page_obj->term_id;
-        } else if ( is_single() ) {
+        } else if ( is_singular("product") ) {
             // GET PARENT COLLECTION ID
             $page_id = $page_obj->term_id;
             $parent_cat = get_the_terms( $post->ID, 'product_cat' );
@@ -219,7 +225,7 @@ function product_filter () { ?>
     <ul id="collection_filter" data-page="collection">
         <?php $tags = get_terms ( "product_tag", "orderby=name" ); 
         foreach ( $tags as $tag ) { ?>
-            <li><a class="filter" id="<?php echo $tag->slug; ?>" href=""><?php echo $tag->name; ?></a><img class="clear_filter" src="<?php bloginfo( 'template_url' ); ?>/img/filter_clear.svg" /></li>
+            <li><a class="filter" id="<?php echo $tag->slug; ?>" href=""><?php echo $tag->name; ?></a></li>
         <?php } ?>
     </ul>
     <?php
@@ -374,6 +380,9 @@ function parent_collection ( $the_id ) {
     $the_query = new WP_Query( $args );
         ?>
         <div class="collection single_collection">
+
+            <ul id="filtered_products"></ul>
+
             <ul>
                 <?php   
                 if ( $the_query->have_posts() ) {

@@ -28,7 +28,6 @@ var Collection = {
 
 		// FILTER INIT
 		this.filterInit();
-		$("#menu_bottom").fadeIn().removeClass("hide");
 
 	},
 
@@ -65,9 +64,7 @@ var Collection = {
 
 		// CLICK OUTSIDE OF FILTER ELEMENTS TO CLOSE
 		$("#menu_bottom").on("click", "#filter_bg", function(e){
-			console.log(67);
 			if(!$(e.target).closest("a.filter").length) {
-		        console.log(69);
 		        Collection.filterHide();
 		    }  
 		});
@@ -75,7 +72,6 @@ var Collection = {
 		$(".clear_filter").on("click", function(){
 			Collection.filterClear( $(this) );
 		});
-
 
 	},
 
@@ -131,11 +127,13 @@ var Collection = {
 		// WHILE LOOP CORRESPONDS TO EACH ROW
 		while ( total < noImages ) {
 			if ( $(window).width() <= 600 ) {
-				number = arraySmall[ i ];
-			} else if ( $(window).width() <= 780 ) {
-				number = arrayMid[ i ];
+				// number = arraySmall[ i ];
+				number = 3;
+			// } else if ( $(window).width() <= 780 ) {
+			// 	number = arrayMid[ i ];
 			} else {
-				number = arrayLarge[ i ];
+				// number = arrayLarge[ i ];
+				number = 4;
 			}
 	
 			// IF NUMBER OF IMAGES LEFT IS LESS THAN ARRAY NUMBER
@@ -176,7 +174,7 @@ var Collection = {
 
 	imgLoad: function ( imgWrapper, filter, maxImages ) {
 
-		console.log("Collection.imgLoad", Collection.imgLoadIndex < maxImages, Collection.imgLoadIndex, maxImages );
+		// console.log("Collection.imgLoad");
 
 		if ( Collection.imgLoadIndex < maxImages ) {
 
@@ -187,15 +185,15 @@ var Collection = {
 
 			var newSrc = Page.imageCalc( img );
 
-		    img.attr( "src", newSrc ).on("load", function () {
+			console.log( 188, "newSrc:", newSrc );
+
+		    img.attr( "src", newSrc ).on("load error", function () {
 
 		    	if ( Collection.imgFrontBack === 0 ) {
-					console.log("Front.");
 					Collection.imgFrontBack++;
 					Collection.imgLoad( imgWrapper, filter, maxImages );
 					img.css("opacity","1");
 		    	} else {
-		    		console.log("Back.");
 					// RESET FRONTBACK
 					Collection.imgFrontBack = 0;
 					// UPDATE LOAD INDEX
@@ -222,11 +220,13 @@ var Collection = {
 
 		var noImages = $(grid_class).length;
 
+		console.log( 226, Collection.imgLoadIndex, noImages );
+
 		if ( Collection.imgLoadIndex < noImages ) {
 
 			console.log("Collection.collectionImages");
 
-			console.log( 227, Collection.imgLoadIndex, noImages );
+			// console.log( 227, Collection.imgLoadIndex, noImages );
 
 			// LOAD NEXT IN LINE
 			var nextImg = $(grid_class).eq(Collection.imgLoadIndex);
@@ -234,6 +234,9 @@ var Collection = {
 		} else {
 			// END OF LOOP
 			console.log("End of loop.");
+			// HIDE LOADING ANIMATION
+			$(".spinner").fadeOut();
+
 		}
 
 	},
@@ -256,7 +259,7 @@ var Collection = {
 
 	filterShow: function () {
 
-		console.log("Page.filterShow");
+		console.log("Collection.filterShow");
 
 		// SHOW BACKGROUND
 		var bg = $("<div></div>").attr("id","filter_bg");
@@ -268,7 +271,7 @@ var Collection = {
 
 	filterHide: function () {
 
-		console.log("Page.filterHide");
+		console.log("Collection.filterHide");
 
 		$("#filter_bg").fadeOut();
 		$("#collection_filter").fadeOut();
@@ -277,11 +280,13 @@ var Collection = {
 
 	filterProducts: function ( click ) {
 
-		console.log("Page.filterProducts");
+		console.log("Collection.filterProducts");
 
 		// GET TAG OF CLICKED CATEGORY
 		var thisId = click.attr("id"), 
 			thisClass = "product-tag-" + thisId;
+
+		console.log( 287, thisClass );
 
 		// IMAGES
 		this.filterProductImages(thisClass);
@@ -292,33 +297,21 @@ var Collection = {
 		$("#collection_filter").fadeOut();
 		$("#filter_bg").fadeOut();
 
-		// $(".selected").removeClass("selected");
-		// $(".clear_filter").hide();
-
-		// click.addClass("selected").next("img").show();
-		// click.addClass("selected");
-
-		// // ENSURE FILTER TOGGLE IS VISIBLE ON SINGLE PAGES
-		// $("#filter_toggle").addClass("filter_vis");
-		
-		// // IF BG VISIBLE
-		// if ( $("#nav_bg").css("opacity") > 0 ) {
-		// 	// BG FADE IN
-		// 	$("#nav_bg").css("opacity","");
-		// }
-
 		// SCROLL TO TOP OF COLLECTION
 		var collTop = 0;
 		if ( $(".collection").length ) {
 			collTop = $(".collection").offset().top;
-		} 		
+		} 	
+
+		console.log( 304, collTop );
+
 		$("html,body").animate({scrollTop: collTop}, 500);
 
 	},
 
 	filterProductImages: function ( thisClass ) {
 
-		console.log("Collection.filterProductImages");
+		console.log("Collection.filterProductImages", thisClass );
 
 		// HIDE ALL IMAGES
 		$(".product").hide();
@@ -328,6 +321,7 @@ var Collection = {
 		// LOOP THROUGH ITEMS ON PAGE
 		$(".product").each( function(){
 			if ( $(this).hasClass( thisClass ) ) {
+				console.log( 322, "yes." );
 				// PUSH TO ARRAY
 				elems.push( $(this).clone().addClass("filtered-product") );
 			}

@@ -102,42 +102,21 @@ global $wc_wholesale_order_form;
                                 <?php 
                                     $images = get_field( "product_images", $product->id ); 
                                     $i = 1;
-                                    foreach ( $images as $image ) {
-                                        // var_dump($image);
-                                        if( !empty($image) ): 
-                                            $thumb = $image["product_image"]["sizes"][ "thumbnail" ]; // 300
-                                            $medium = $image["product_image"]["sizes"][ "medium" ]; // 600
-                                            $large = $image["product_image"]["sizes"][ "large" ]; // 800
-                                            $extralarge = $image["product_image"]["sizes"][ "extra-large" ]; // 1024
-                                            $full = $image["product_image"]["url"];
-                                        endif; ?>
+                                    foreach ( $images as $image ) { ?>
                                     <li class="<?php if ( $i === 1 ) { echo "visible"; } ?>">
-                                        <?php /* <img class="wholesale_image" 
-                                            data-sizes="(max-width: 800px) 50vw, 25vw" 
-                                            src="<?php echo $medium; ?>" 
-                                        /> */ 
-
-                                        ?>
-                                        <img class="wholesale_image lazyload" 
-                                            src="<?php echo $thumb; ?>" 
-                                            data-sizes="auto"
-                                            data-src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" 
-                                            data-srcset="<?php echo $full; ?> 2000w,
-                                                    <?php echo $extralarge; ?> 1024w,
-                                                    <?php echo $large; ?> 800w,
-                                                    <?php echo $medium; ?> 600w,
-                                                    <?php echo $thumb; ?> 300w"
-                                            alt="Can Pep Rey"
-                                        />
+                                        <?php cpr_image_object ( $image["product_image"], "wholesale_image" ); ?>
                                     </li>                              
                                 <?php 
                                     $i++;
                                 } ?>
                             </ul>
-                            <div class="gallery_arrow">
-                                <img src="<?php bloginfo('template_url'); ?>/img/gallery_arrow_large.svg" />
-                            </div> 
+
                         </div><!-- end of .wholesale_product_image -->
+
+                        <div class="gallery_nav">
+                            <div class="gallery_left"><img src="<?php bloginfo('template_url'); ?>/img/gallery_arrow_large.svg" /></div>
+                            <div class="gallery_right"><img src="<?php bloginfo('template_url'); ?>/img/gallery_arrow_large.svg" /></div>
+                        </div>
 
                         <?php /* echo $wc_wholesale_order_form->getProductImage( $product , get_the_permalink() , array( 48 , 48 ) ); // array here means image dimension */ 
 
@@ -317,5 +296,5 @@ global $wc_wholesale_order_form;
 </div><!--#wwof_product_listing_pagination-->
 
 <script>
-    wholesaleInit();
+    Wholesale.init();
 </script>

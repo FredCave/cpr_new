@@ -6,9 +6,6 @@ get_header();
 get_sidebar();
 ?>
 
-<!-- COLLECTION FILTER -->
-<?php product_filter(); ?>
-
 <!-- LOADING -->
 <div class="spinner"></div>
 

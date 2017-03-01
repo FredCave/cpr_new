@@ -25,7 +25,8 @@
 	    						the_field("embedded_media");
 	    					} else if ( get_field("news_images") ) {
 								// IMAGE
-								$image = get_field("news_images")[0]["news_image"];
+								$images = get_field("news_images");
+								$image = $images[0]["news_image"];
 								cpr_image_object($image);
 	    					} ?>
 	    				</div>
@@ -37,8 +38,9 @@
 		    					
 		    				<?php 
 		    				the_field("news_extract"); 
-		    				if ( get_field("news_main_text") ) { ?>
-		    					<a class="read_more" href="<?php the_permalink(); ?>">[Read More...]</a>
+		    				// CHECK IF MAIN TEXT OR IF MORE THAN ONE IMAGE
+		    				if ( get_field("news_main_text") || count($images) > 1 ) { ?>
+		    					<a class="read_more" href="<?php the_permalink(); ?>">[See More...]</a>
 		    				<?php } ?>							
 		    				
 		    				<?php /*

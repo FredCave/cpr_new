@@ -3,9 +3,7 @@
 <?php get_sidebar(); ?>
 
 <!-- LOADING -->
-<div id="loading">
-	<img src="<?php bloginfo( 'template_url' ); ?>/img/loading.gif" />
-</div>
+<div class="spinner"></div>
 
 <?php $the_query = new WP_Query("name=info");
 	if ( $the_query -> have_posts() ) :

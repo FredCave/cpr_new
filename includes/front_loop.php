@@ -15,6 +15,7 @@
 			break;
 		}
 	}
+	// var_dump($cat);
 	$args_2 = array(
 	    'post_type' => 'product',
 	    'taxonomy' => 'product_cat',

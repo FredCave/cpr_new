@@ -13,9 +13,11 @@ function cpr_get_colls () {
 		if ( get_field( "cat__visible", "product_cat_" . $cat->term_taxonomy_id ) || is_user_logged_in() ) { 
 			$slug = $cat->slug; ?>
 			<li>
-				<p><?php echo $cat->name; ?></p>
-				<p><a href="<?php bloginfo('url'); ?>/collection/<?php echo $slug; ?>">Store</a></p>
-				<p><a href="<?php bloginfo('url'); ?>/campaign/<?php echo $slug; ?>">Campaign</a></p>
+				<div class="menu_coll_toggle"><?php echo $cat->name; ?></div>
+				<div class="menu_coll_hidden">
+					<p><a href="<?php bloginfo('url'); ?>/collection/<?php echo $slug; ?>">Store</a></p>
+					<p><a href="<?php bloginfo('url'); ?>/campaign/<?php echo $slug; ?>">Campaign</a></p>
+				</div>
 			</li>
 		<?php
 		}	
@@ -80,7 +82,7 @@ function cpr_get_colls () {
 
 			<!-- TERMS AND CONDITIONS -->
 			<p class="menu_link">
-				<a href="<?php bloginfo(); ?>/_information">Terms and Conditions</a>
+				<a href="<?php bloginfo('url'); ?>/terms-and-conditions">Terms and Conditions</a>
 			</p>
 		</div>	
 

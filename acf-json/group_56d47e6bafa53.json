@@ -32,8 +32,8 @@
                 "id": ""
             },
             "collapsed": "",
-            "min": "",
-            "max": "",
+            "min": 0,
+            "max": 0,
             "layout": "table",
             "button_label": "Add Images",
             "sub_fields": [
@@ -62,6 +62,25 @@
                     "mime_types": ""
                 }
             ]
+        },
+        {
+            "key": "field_58aa37e96518a",
+            "label": "Images Credit",
+            "name": "images_credit",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
         }
     ],
     "location": [
@@ -97,5 +116,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1473010830
+    "modified": 1487550463
 }

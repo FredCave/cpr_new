@@ -1,4 +1,4 @@
-<div id="menu_bottom" class="<?php if ( is_front_page() ) { echo "hide"; } ?>">
+<div id="menu_bottom" class="<?php if ( is_front_page() || is_singular( $post_types = 'product' ) ) { echo "hide"; } ?>">
 
 	<div id="secondary_nav">
 		
@@ -14,7 +14,9 @@
 			<?php } ?>
 
 			<!-- ACCOUNT -->	
-			<li id="secondary_account"><a href="<?php bloginfo( 'url' ); ?>/my-account/">Wholesale</a></li>	
+			<li id="secondary_account">
+				<a href="<?php bloginfo( 'url' ); ?>/my-account/">Wholesale</a>
+			</li>	
 
 			<!-- CART -->
 			<li id="secondary_cart">
@@ -22,7 +24,7 @@
 				    <a class="cart-contents" href="<?php echo WC()->cart->get_cart_url(); ?>" title="<?php _e( 'View your shopping cart' ); ?>">
 				        <?php 
 				        echo WC()->cart->cart_contents_count . " / " . WC()->cart->get_cart_total(); ?>
-				    </a> 
+				    </a>
 				</div>
 			</li>
 		</ul>

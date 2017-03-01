@@ -25,6 +25,8 @@
 						}
 						$image = get_sub_field('landing_image');
 						if( !empty($image) ): 
+				        	$width = $image['width']; 
+				        	$height = $image['height']; 
 				            $thumb = $image['sizes'][ "thumbnail" ]; // 300
 				            $medium = $image['sizes'][ "medium" ]; // 600
 				            $large = $image['sizes'][ "large" ]; // 800
@@ -41,6 +43,8 @@
 									</div>
 						        <?php } ?>
 						        <div class="bg_image blurred" 
+									data-width="<?php echo $width; ?>" 
+									data-height="<?php echo $height; ?>" 
 								    data-thm="<?php echo $thumb; ?>" 
 								    data-med="<?php echo $medium; ?>" 
 								    data-lrg="<?php echo $large; ?>" 
@@ -66,6 +70,14 @@
 <div id="landing_page">
 
 	<!-- LANDING PAGE CONTENT -->
+	<?php /*
+	<div id="video_wrapper">
+		<video id="video" width="872" height="480" autoplay loop muted>
+			<source src="<?php bloginfo( 'template_url' ); ?>/img/video.mp4" type="video/mp4">
+		</video>
+	</div>
+	*/ ?>
+
 	<ul>
 		<?php get_landing_page(); ?>
 	</ul>

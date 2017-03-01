@@ -50,34 +50,43 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<div class="single_images_right">
 			<?php if ( have_rows("product_images") ):				
+				echo "<ul class='gallery' id='" . get_the_ID() . "'>";
 				$i = 0; 
 				while ( have_rows("product_images") ) : the_row();
-					$image = get_sub_field("product_image");
-					if( !empty($image) ): 
-
-			        	$width = $image["width"];
-			        	$height = $image["height"];
-			            $thumb = $image["sizes"][ "thumbnail" ]; // 300
-			            $medium = $image["sizes"][ "medium" ]; // 600
-			            $large = $image["sizes"][ "large" ]; // 800
-			            $extralarge = $image["sizes"][ "extra-large" ]; // 1024
-			            $landingpage = $image["sizes"]["landing-page"]; // 2048
-			        	?>
-
-						<img 
-						width="<?php echo $width; ?>" 
-						height="<?php echo $height; ?>" 
-					    src="" 
-					    data-thm="<?php echo $thumb; ?>" 
-					    data-med="<?php echo $medium; ?>" 
-					    data-lrg="<?php echo $large; ?>" 
-					    data-xlg="<?php echo $extralarge; ?>" 
-					    data-lnd="<?php echo $landingpage; ?>" 
-						class="single_additional_image <?php echo $class; ?>" />	
-
-					<?php endif;		        
+					if ( $i > 0 ) {
+						$image = get_sub_field("product_image");
+						if( !empty($image) ): 
+				        	$width = $image["width"];
+				        	$height = $image["height"];
+				            $thumb = $image["sizes"][ "thumbnail" ]; // 300
+				            $medium = $image["sizes"][ "medium" ]; // 600
+				            $large = $image["sizes"][ "large" ]; // 800
+				            $extralarge = $image["sizes"][ "extra-large" ]; // 1024
+				            $landingpage = $image["sizes"]["landing-page"]; // 2048
+				        	?>
+							<li>
+								<img 
+								width="<?php echo $width; ?>" 
+								height="<?php echo $height; ?>" 
+							    src="" 
+							    data-thm="<?php echo $thumb; ?>" 
+							    data-med="<?php echo $medium; ?>" 
+							    data-lrg="<?php echo $large; ?>" 
+							    data-xlg="<?php echo $extralarge; ?>" 
+							    data-lnd="<?php echo $landingpage; ?>" 
+								class="single_additional_image <?php echo $class; ?>" />
+							</li>	
+						<?php 
+						endif;
+					}
+					$i++;		        
 				endwhile;
+				echo "</ul>";
 			endif; ?>
+		</div>
+		<div class="gallery_nav">
+			<div class="gallery_left"><img src="<?php bloginfo('template_url'); ?>/img/gallery_arrow_large.svg" /></div>
+			<div class="gallery_right"><img src="<?php bloginfo('template_url'); ?>/img/gallery_arrow_large.svg" /></div>
 		</div>
 
 		<?php /* if ( have_rows("product_images") ):				
