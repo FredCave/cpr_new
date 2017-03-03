@@ -7,6 +7,18 @@
 
 <div id="single_campaign" class="page page_margin">
 
+	<?php 
+	global $post;
+	$coll = $post->post_name;
+	?>
+
+	<!-- LINK TO CORRESPONDING STORE -->
+	<p class="page_link">
+		<a class="button" href="<?php bloginfo( 'url' ); ?>/collection/<?php echo $coll; ?>">
+			<?php echo get_the_title() . " Store"; ?>
+		</a>
+	</p>
+
 	<div id="single_campaign_left" class="news_left">
 		<!-- VIDEO -->
 		<?php if ( get_field("video") ) { ?>

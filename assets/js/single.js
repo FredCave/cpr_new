@@ -117,6 +117,7 @@ var Single = {
 		$(".single_images_right").each( function(){
 			// GET NUMBER OF IMAGES
 			var noImages = $(this).find("img").length;
+			console.log( 120, noImages );
 			// IF NOIMAGES > 1 : INIT SLIDESHOW
 			if ( noImages > 1 ) {
 				Single.slideShowInit( $(this) );

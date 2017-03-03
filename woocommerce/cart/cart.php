@@ -140,11 +140,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 								<td class="product-quantity">
 									<!-- DEFAULT NUMBER IS VISIBLE -->
-									<span class="product-quantity-default">
+									<?php /* <span class="product-quantity-default">
 										<?php echo $cart_item['quantity']; ?>
-									</span>
+									</span> */ ?>
 									
-									<!-- ON CLICK REPLACE WITH INPUT TO MODIFY QUANTITY -->
 									<span class="product-quantity-input">
 										<?php
 										if ( $_product->is_sold_individually() ) {

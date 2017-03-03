@@ -1,16 +1,16 @@
 $(document).ready( function(){
 
-	console.log("init", $("#test_button") );
+	// console.log("init", $("#test_button") );
 
-	setTimeout( function(){
+	// setTimeout( function(){
 
-		console.log("click check");
+	// 	console.log("click check");
 
-		$.get( myAjax.ajaxurl, { action: "ajax_test" }, function ( data ) {
-			console.log( data );
-		});
+	// 	$.get( myAjax.ajaxurl, { action: "ajax_test" }, function ( data ) {
+	// 		console.log( data );
+	// 	});
 
-	}, 8000 );
+	// }, 8000 );
  
 });
 

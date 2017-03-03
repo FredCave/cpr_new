@@ -8,9 +8,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<div class="single_images_wrapper">
 
+		<?php /*
 		<div class="gallery_arrow">
 			<img src="<?php bloginfo('template_url'); ?>/img/gallery_arrow_thin.svg" />
 		</div>
+		*/ ?>
 
 		<div class="single_images_left">
 			<?php if ( have_rows("product_images") ):				

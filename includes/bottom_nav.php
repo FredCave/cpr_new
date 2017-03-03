@@ -1,3 +1,7 @@
+<?php 
+// SET BG COLOUR???
+?>
+
 <div id="menu_bottom" class="<?php if ( is_front_page() || is_singular( $post_types = 'product' ) ) { echo "hide"; } ?>">
 
 	<div id="secondary_nav">

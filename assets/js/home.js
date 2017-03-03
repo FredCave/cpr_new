@@ -69,6 +69,12 @@ var Home = {
 
 		console.log("Home.slideInit");
 
+		var mq = window.matchMedia(" (orientation:portrait), (max-aspect-ratio:3/4), (max-width: 600px)");
+		if ( mq.matches ) {
+			this.mobileInit();
+			return;
+		}
+
 		if ( $("#landing_page ul li").length === 0 ) {
 			// NO IMAGES: VIDEO
 			console.log("No landing page images.");
@@ -98,6 +104,14 @@ var Home = {
 			});
 		});
 
+	},
+
+	mobileInit: function () {
+
+		console.log("Home.mobileInit");
+
+		// SHOW COLLECTION
+		Home.landingEnd();
 
 	},
 
@@ -186,7 +200,9 @@ var Home = {
 			// HIDE BOTTOM MENU
 			$("#menu_bottom").fadeOut().addClass("hide");
 
-			this.videoPlay();
+			if ( $("#video").length ) {
+				this.videoPlay();
+			}
 
 		}
 
@@ -228,7 +244,9 @@ var Home = {
 
 			this.landingVis = false;
 
-			this.videoPause();
+			if ( $("#video").length ) {
+				this.videoPause();
+			}
 
 		}
 

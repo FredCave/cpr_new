@@ -249,7 +249,7 @@ var Collection = {
 		// & CHECK IF THEY ARE ON PAGE
 		$("#collection_filter li").each( function(){
 			var filterText = $(this).find("a").attr("id");
-			if ( !$(".product-tag-" + filterText).length ) {
+			if ( !$(".product_tag-" + filterText).length ) {
 				console.log( filterText, " hidden." );
 				$(this).hide();
 			} 
@@ -262,9 +262,11 @@ var Collection = {
 		console.log("Collection.filterShow");
 
 		// SHOW BACKGROUND
-		var bg = $("<div></div>").attr("id","filter_bg");
-		bg.prependTo("#menu_bottom").fadeIn(1000);
-
+		if ( !$("#filter_bg").length ) {
+			var bg = $("<div></div>").attr("id","filter_bg");
+			bg.prependTo("#menu_bottom")
+		}
+		$("#filter_bg").fadeIn(1000);
 		$("#collection_filter").fadeIn();
 
 	},
@@ -284,7 +286,7 @@ var Collection = {
 
 		// GET TAG OF CLICKED CATEGORY
 		var thisId = click.attr("id"), 
-			thisClass = "product-tag-" + thisId;
+			thisClass = "product_tag-" + thisId;
 
 		console.log( 287, thisClass );
 

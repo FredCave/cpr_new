@@ -18,6 +18,9 @@ get_sidebar();
 <!-- WHOLESALE LOGIN HERE -->
 
 <p class="myaccount_user my_account">
+
+	<?php /* echo "Wholesale currently unavailable."; */ ?>
+
 	<?php
 	printf(
 		__( 'Hello <strong>%1$s</strong> (not %1$s? <a href="%2$s">Sign out</a>).', 'woocommerce' ) . ' ',

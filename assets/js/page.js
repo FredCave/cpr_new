@@ -21,9 +21,10 @@ var Page = {
 			} else {
 				Collection.init();
 			}
-		// WHOLESALE
-		// } else if ( $(".page-wholesale").length ) {
-		// 	Wholesale.init();
+		// CART
+		} else if ( $("#cart").length ) {
+			this.couponCheck();
+			$(".spinner").fadeOut();
 		// NEWS + SINGLE NEWS
 		} else {
 			if ( $(".gallery").length ) {
@@ -31,6 +32,7 @@ var Page = {
 			} else {
 				this.imagesLoad();				
 			}
+			this.iframesCheck();
 		}
 
 		this.bindEvents();
@@ -67,6 +69,22 @@ var Page = {
 			// Page.imagesLoad();
 		}, 500 ) );
 
+		// STOP SCROLLING ANIMATION ON MOUSE/TOUCH EVENTS
+		var page = $("html, body");
+		page.on("scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove", function(){
+			page.stop(true,true);
+		});
+
+		// ONLY IN CART
+		$(".product-quantity-input input[type=button]").on("click", function(){
+			// SHOW UPDATE CART BUTTON
+			Page.showUpdateCart();
+		});
+
+		$("#secondary_nav").on("click", ".update_cart_bis", function (){
+			Page.updateCart();
+		});
+
 	},
 
 	menuOpen: function () {
@@ -74,15 +92,13 @@ var Page = {
 		console.log("Page.menuOpen");
 
 		Page.menuVisible = true;
+
 		// GIVE HEIGHT TO MENU
 		var menu = $("#menu_top_hidden"),
 			totalH = $("#menu_content_wrapper").outerHeight() + 120;
-
-		console.log( 78, totalH );
-
 		menu.css({"height":totalH});
 		setTimeout(function(){
-			menu.css({"height":"auto"});	
+			menu.css({"height":"auto"});
 		}, 1000 );
 
 	},
@@ -92,8 +108,13 @@ var Page = {
 		console.log("Page.menuClose");
 
 		Page.menuVisible = false;
-		$("#menu_top_hidden").css({"height":""});
-
+		// GET + SET CURRENT HEIGHT FOR ANIMATION
+		var menuH = $("#menu_top_hidden").height();
+		$("#menu_top_hidden").css({"height":menuH});
+		setTimeout( function(){
+			$("#menu_top_hidden").css({"height":""});	
+		}, 100 );
+		
 	},
 
 	menuCollToggle: function ( click ) {
@@ -202,6 +223,79 @@ var Page = {
 		});
 
 		$(".spinner").fadeOut();
+
+	},
+
+	couponCheck: function () {
+
+		console.log("Page.couponCheck");
+
+		if ( $(".coupon").length ) {
+			// IF VALUE IS WHOLESALE AND NOT ALREADY ADDED
+			if ( $(".coupon input").attr("value") === "wholesale" ) {
+				if ( $(".cart_totals").find(".cart-discount").length ) {
+					console.log("Coupon applied");
+				} else {
+					console.log("Apply coupon.");
+					$(".coupon input.button").trigger("click");					
+				}
+			}
+		}
+
+	},
+
+	iframesCheck: function () {
+
+		if ( $("iframe").length ) {
+
+			console.log("Page.iframesCheck");
+
+			$("iframe").each( function(){
+				var thisR = $(this).attr("width") / $(this).attr("height"),
+					newH = $(this).width() / thisR,
+					maxH = $(window).height() * 0.8;
+
+				console.log( 248, maxH, maxH * thisR );
+
+				// IF TALLER THAN PARENT
+				if ( newH > maxH ) {
+					$(this).css({
+						"height" : maxH,
+						"width" : maxH * thisR
+					});	
+				} else {
+					$(this).css({
+						"height" : newH,
+						"width" : "" 	
+					});	
+				}
+				// RESIZE PARENT 
+				$(this).parents(".news_content").css( "min-height", newH );
+			});	
+
+		}
+				
+	},
+
+	showUpdateCart: function ( click ) {
+
+		console.log("Page.showUpdateCart");
+
+		// IF BUTTON DOES NOT ALREADY EXIST
+		if ( !$("#secondary_nav").find(".update_cart_bis").length ) {
+			// CLONE BUTTON
+			$("<div class='update_cart_bis'>Update cart</div>").appendTo( $("#secondary_nav ul") );
+		} else {
+			console.log("Already exists.");
+		}
+
+	},
+
+	updateCart: function () {
+
+		console.log("Page.updateCart");
+
+		$(".update_cart").trigger("click");
 
 	}
 
