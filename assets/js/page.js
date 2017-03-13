@@ -85,6 +85,35 @@ var Page = {
 			Page.updateCart();
 		});
 
+		// MEDIA QUERY MATCHING
+		var mql = {};
+		mql.m = window.matchMedia("(max-width: 800px)");
+		mql.v = window.matchMedia(" (orientation:portrait), (max-aspect-ratio:3/4), (max-width: 600px)");
+		mql.m.addListener(function(){
+			Page.handleMediaChange(mql);
+		});
+		mql.v.addListener(function(){
+			Page.handleMediaChange(mql);	
+		});
+		Page.handleMediaChange(mql);
+
+	},
+
+	handleMediaChange: function (mql) {
+
+		console.log("Collection.handleMediaChange");
+
+		if ( $(".collection").length ) {
+			Collection.mediaChange(mql);
+		}
+
+		if ( mql.v.matches ) {
+			console.log( 111 );
+			Home.verticalScreen = true;
+		} else {
+			Home.verticalScreen = false;			
+		}
+
 	},
 
 	menuOpen: function () {

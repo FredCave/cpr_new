@@ -6,6 +6,8 @@ var Home = {
 
 	landingVis: true,
 
+	verticalScreen: false,
+
 	firstLoad: true,
 
 	winW: $(window).width(),
@@ -178,10 +180,15 @@ var Home = {
 
 	landingReset: function () {
 
-		console.log("Home.landingReset");
+		if ( !this.animBlock && !this.verticalScreen ) {
 
-		if ( !this.animBlock ) {
+			console.log("Home.landingReset");
 			
+			// IF NOT VISIBLE
+			if ( !$("#landing_page").find(".visible").length ) {
+				this.slideInit();
+			}
+
 			this.animBlock = true;
 			setTimeout( function(){
 				Home.animBlock = false;

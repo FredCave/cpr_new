@@ -1,8 +1,8 @@
 var Collection = {
 
-	imgFrontBack: 0,
-
 	imgLoadIndex: 0,
+
+	imagesOnPage: 0,
 
 	winW: $(window).width(),
 
@@ -10,7 +10,11 @@ var Collection = {
 
 	filter: false,
 
-	init: function () {
+	collLoaded: false,
+
+	noCols: 4,
+
+	init: function ( cols ) {
 
 		console.log("Collection.init");
 
@@ -19,12 +23,7 @@ var Collection = {
 		// FADE IN COLLECTION
 		$(".collection").fadeIn().css({"opacity":"1"});
 
-		// PREPARE GRID
-		this.gridReset();
-		this.gridCalc();
-
-		// SHOW IMAGES
-		this.collectionImages();
+		this.gridLoad();
 
 		// FILTER INIT
 		this.filterInit();
@@ -73,6 +72,59 @@ var Collection = {
 			Collection.filterClear( $(this) );
 		});
 
+		$(window).on("resize", _.throttle( function(){
+			// Collection.marginsCalc();
+		}, 1000 ));
+
+	},
+
+	mediaChange: function (mql) {
+
+		console.log("Collection.mediaChange", mql);
+
+		if (mql.v.matches) {
+
+			// IF SCREEN VERTICAL OR LESS THAN 600PX WIDE 
+
+			var newCols = 3;
+
+		} else {
+
+	    	// MORE THAN 800PX WIDE
+
+	    	var newCols = 4;
+
+	    }
+
+	    // CHECK IF NEW NO. COLS DIFFERENT TO PREVIOUS
+		if ( Collection.noCols !== newCols ) {
+			Collection.noCols = newCols;
+
+			// IF COLLECTION NOT YET INIT – ON HOME
+			if ( !$(".collection").is(":visible") ) {
+				Collection.init();
+			} else {
+				Collection.gridLoad();					
+			}
+
+		}
+
+	},
+
+	gridLoad: function () {
+
+		console.log("Collection.gridLoad", this.noCols);
+
+		// PREPARE GRID
+		this.gridReset();
+		this.gridCalc();
+
+		// SHOW IMAGES
+		Collection.imgLoadIndex = 0;
+		this.collectionImages();
+
+		this.collLoaded = true;
+
 	},
 
 	gridReset: function () {
@@ -94,9 +146,9 @@ var Collection = {
 			$(".bottom").removeClass("selected-product");					
 		}
 
-		// FILTER ALL EMPTY PRODUCTS
+		// FILTER ALL PRODUCTS WITH LESS THAN 2 IMAGES
 		$(".product").each( function() {
-			if ( !$(this).find(".product_image").length ) {
+			if ( $(this).find(".product_image").length < 2 ) {
 				$( this ).removeClass("selected-product");	
 			}
 		});
@@ -116,97 +168,95 @@ var Collection = {
 	
 		var noImages = $(grid_class).length,
 			total = 0,
-			i = 0;
+			i = 1;
 
-		console.log( 122, noImages );
+		console.log( 122, noImages, this.noCols );
 
-		//  RECALCULATED ON RESIZE
-		var arrayLarge = [3,5,3,5],
-			arrayMid = [3,1,5,3],
-			arraySmall = [3,1,2,1];
 		// WHILE LOOP CORRESPONDS TO EACH ROW
 		while ( total < noImages ) {
-			if ( $(window).width() <= 600 ) {
-				// number = arraySmall[ i ];
-				number = 3;
-			// } else if ( $(window).width() <= 780 ) {
-			// 	number = arrayMid[ i ];
-			} else {
-				// number = arrayLarge[ i ];
-				number = 4;
-			}
-	
+
+			// STORE NUMBER OF IMAGES IN GRID AS VARIABLE
+			this.imagesOnPage = noImages;
+
+			number = this.noCols;
 			// IF NUMBER OF IMAGES LEFT IS LESS THAN ARRAY NUMBER
 			if ( ( noImages - total ) < number ) {
 				number = noImages - total;
 			}	
 			
 			// REMOVE EXISTING CLASSES BEGINNING WITH CHILD-*
-			$(".collection " + grid_class).slice( total, total+number ).wrapAll("<div class='collection_row'></div>").attr("data-row", number);
+			$(".collection " + grid_class).slice( total, total+number ).wrapAll("<div id='row-"+i+"' class='collection_row'></div>").attr({"data-row": number});
 			
+			// SHOW LI IN ORDER TO STOP SHIFTING COLUMNS
+			$("#row-" + i).find("li").show();
+
+			// CALCULATE MARGINS ON ROW
+			this.marginsCalc( $("#row-" + i) );
+
 			total += number; 
 
-			if ( i === 3 ) {
-				i = 0;
-			} else {
-				i++;	
-			}
+			console.log( 195, i );
+
+			i++;
+
+			// if ( i === 3 ) {
+			// 	i = 0;
+			// } else {
+			// 	i++;	
+			// }
 
 		} // END OF WHILE
 		
-		// SET IMAGE WIDTH
-		// var imgRatio,
-		// 	newWidth;
-		// $(".collection .selected-product").find(".product_image").each( function(){
-		// 	imgRatio = $(this).attr("width") / $(this).attr("height");
-		// 	// WIDTH BASED ON PARENT HEIGHT
-		// 	newWidth = $(this).parents("li").height() * imgRatio;
-		// 	$(this).css( "width", newWidth ).addClass("lazyload").attr( "data-ratio", imgRatio );
-		// });
-
-		// 	// INITIATE LAZYSIZES
-		// 	lazySizes.init();
-		// 	// SHOW IMAGES			
-		// 	$(".collection .selected-product").fadeIn("slow");
-		// }
-
 	},
 
-	imgLoad: function ( imgWrapper, filter, maxImages ) {
+	imgLoad: function ( imgWrapper, filter ) {
 
-		// console.log("Collection.imgLoad");
+		// CALLED BY COLLECTIONIMAGES AND ITSELF
 
-		if ( Collection.imgLoadIndex < maxImages ) {
+		console.log("Collection.imgLoad", Collection.imgLoadIndex, Collection.imagesOnPage);
 
-		    var img = imgWrapper.find(".front");
-		    if ( Collection.imgFrontBack === 1 ) {
-		    	img = imgWrapper.find(".back");
-		    }
+		var img = imgWrapper.find(".front");
 
-			var newSrc = Page.imageCalc( img );
+		// IF FRONT LOADED:
+	    if ( img.hasClass("loaded") ) {
+	    	img = imgWrapper.find(".back");	    		
+	    }	
 
-			console.log( 188, "newSrc:", newSrc );
+		var newSrc = Page.imageCalc( img );
 
-		    img.attr( "src", newSrc ).on("load error", function () {
+		img.attr( "src", newSrc ).on( "load error", function (e) {
 
-		    	if ( Collection.imgFrontBack === 0 ) {
-					Collection.imgFrontBack++;
-					Collection.imgLoad( imgWrapper, filter, maxImages );
+			$(this).addClass("loaded");	
+		    	 		
+			// FRONT
+			if ( img.hasClass("front") ) {
+
+				// SHOW AND RUN AGAIN
+				img.css("opacity","1");
+				Collection.imgLoad( imgWrapper, filter );
+
+			// BACK
+			} else {
+				
+				// TIMEOUT SO GHOST IMAGE DOESN'T APPEAR ON WRAPPER FADE-IN
+				setTimeout( function (){
 					img.css("opacity","1");
-		    	} else {
-					// RESET FRONTBACK
-					Collection.imgFrontBack = 0;
-					// UPDATE LOAD INDEX
-					Collection.imgLoadIndex++;
+				}, 500 );
+
+				// UPDATE LOAD INDEX
+				Collection.imgLoadIndex++;
+
+				if ( Collection.imgLoadIndex <= Collection.imagesOnPage ) {
 					Collection.collectionImages( filter );
-					img.css("opacity","1");
-		    	}
+				}
 
-		   		// SHOW IMAGE
-		    	imgWrapper.fadeIn();
-		    });
+			}
 
-		} 
+			// SHOW IMAGE LI
+			imgWrapper.css("opacity","1");
+		
+		});
+
 
 	},
 
@@ -219,6 +269,8 @@ var Collection = {
 		}
 
 		var noImages = $(grid_class).length;
+		// STORE NOIMAGES AS VARIABLE
+		Collection.imagesOnPage = noImages;
 
 		console.log( 226, Collection.imgLoadIndex, noImages );
 
@@ -226,17 +278,18 @@ var Collection = {
 
 			console.log("Collection.collectionImages");
 
-			// console.log( 227, Collection.imgLoadIndex, noImages );
-
 			// LOAD NEXT IN LINE
 			var nextImg = $(grid_class).eq(Collection.imgLoadIndex);
-			this.imgLoad( nextImg, filter, noImages );
+
+			console.log( 278, $(grid_class).eq(Collection.imgLoadIndex).find("a").attr("href") );
+
+			this.imgLoad( nextImg, filter);
+			
 		} else {
 			// END OF LOOP
 			console.log("End of loop.");
 			// HIDE LOADING ANIMATION
 			$(".spinner").fadeOut();
-
 		}
 
 	},
@@ -362,6 +415,68 @@ var Collection = {
 			collTop = $(".collection").offset().top;
 		} 		
 		$("html,body").animate({scrollTop: collTop}, 500);
+
+	},
+
+	marginsCalc: function ( row ) {
+
+		console.log("Collection.marginsCalc");
+
+		var target;
+		if ( row === undefined ) {
+			row = $(".collection_row").first();
+			target = $(".collection_row");
+		} else {
+			target = row;
+		}
+
+		console.log( 433, target );
+
+		// LOOP THROUGH ROWS
+		target.each( function(){
+
+			console.log( 437, $(this) );
+
+			// GET TOTAL SPACE BETWEEN ALL IMAGES
+			var firstLi = $(this).find("li").first(),
+				liW = firstLi.find("img").width(),
+				totalDiff = 0,
+				percFour = 0,
+				percThree = 0;
+
+			if ( firstLi.attr("data-row") == 4 ) {
+				totalDiff = Collection.winW - (liW * 4);
+				percFour = totalDiff / Collection.winW / 5 * 100;
+			} else {	
+				totalDiff = Collection.winW - (liW * 3);
+				percThree = totalDiff / Collection.winW / 4 * 100;
+			}	
+
+			console.log( liW*4, Collection.winW, totalDiff, percFour, percThree );
+			
+			if ( percFour > 0 || percThree > 0 ) {
+				if ( $(this).find("li[data-row=4]").length ) {
+					$(this).css({
+						"width" : 100 - (percFour*2) + "%",
+						"left" : percFour + "%",
+						"margin-bottom" : percFour + "%"
+					});					
+				} else {
+					$(this).css({
+						"width" : 100 - (percThree*2) + "%",
+						"left" : percThree + "%",
+						"margin-bottom" : percFour + "%"
+					});
+				}
+			} else {
+				$(this).css({
+					"width" : "",
+					"left" : "",
+					"margin-bottom" : ""
+				});			
+			}
+
+		});
 
 	}
 

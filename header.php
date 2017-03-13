@@ -19,7 +19,7 @@
 	endif;
 	?>
 	<title>Can Pep Rey<?php if ( !is_front_page() ) echo " – " . $title; ?></title>
-    <meta name="description" content="">
+    <meta name="description" content="<?php bloginfo("description"); ?>">
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=9" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
