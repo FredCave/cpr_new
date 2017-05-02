@@ -86,7 +86,7 @@ var Collection = {
 
 			// IF SCREEN VERTICAL OR LESS THAN 600PX WIDE 
 
-			var newCols = 3;
+			var newCols = 2;
 
 		} else {
 
@@ -101,11 +101,11 @@ var Collection = {
 			Collection.noCols = newCols;
 
 			// IF COLLECTION NOT YET INIT – ON HOME
-			if ( !$(".collection").is(":visible") ) {
-				Collection.init();
-			} else {
-				Collection.gridLoad();					
-			}
+			// if ( !$(".collection").is(":visible") ) {
+			// 	Collection.init();
+			// } else {
+			// 	Collection.gridLoad();					
+			// }
 
 		}
 
@@ -317,7 +317,7 @@ var Collection = {
 		// SHOW BACKGROUND
 		if ( !$("#filter_bg").length ) {
 			var bg = $("<div></div>").attr("id","filter_bg");
-			bg.prependTo("#menu_bottom")
+			bg.prependTo("#menu_bottom");
 		}
 		$("#filter_bg").fadeIn(1000);
 		$("#collection_filter").fadeIn();

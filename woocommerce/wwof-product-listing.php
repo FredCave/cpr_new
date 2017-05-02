@@ -163,11 +163,14 @@ if ( !is_user_logged_in() ) {
                                             }
                                         ?>
                                     <?php echo $wc_wholesale_order_form->getProductQuantityField( $product ); 
-                                    /* ?>
-                                    <input type="submit" class="update_cart button" name="update_cart" value="<?phpesc_attr_e( 'Update Cart', 'woocommerce' ); ?>" /> 
-                                    */ ?>
+                                    ?>
+                                    <?php /*
+                                    <input type="submit" class="update_cart button" name="update_cart" value="<?php esc_attr_e( 'Update Cart', 'woocommerce' ); ?>" /> 
+                                    
                                     <input data-id="<?php echo $product_id; ?>" data-variation="<?php echo $variation_id; ?>" data-size="<?php echo $variation["attributes"]["attribute_pa_size"]; ?>" type="button" class="custom_add_to_cart btn btn-primary button alt" value="Add to Cart"/>
                                     <?php /* <span class="spinner"></span> */ ?>
+
+                                    <input type="button" class="wwof_add_to_cart_button btn btn-primary single_add_to_cart_button button alt" value="<?php echo __( 'Add To Cart' , 'woocommerce-wholesale-order-form' ); ?>"/>
 
                                 </div>
                             <?php 

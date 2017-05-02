@@ -6,6 +6,8 @@ var Page = {
 
 	winH: $(window).height(),
 
+	player: "",
+
 	init: function () {
 
 		console.log("Page.init");
@@ -29,6 +31,10 @@ var Page = {
 		} else {
 			if ( $(".gallery").length ) {
 				Gallery.init();
+				// IF VIDEO
+				if ( $("#campaign_video").length ) {
+					this.createPlayer( $("#campaign_video") );
+				}
 			} else {
 				this.imagesLoad();				
 			}
@@ -63,6 +69,15 @@ var Page = {
 
 		$(".menu_coll_toggle").on("click", function(e){
 			Page.menuCollToggle( $(this) ); 
+		});
+
+		$("#newsletter_link").on("click", function(e){
+			e.preventDefault();
+			Page.newsletterShow();
+		});
+
+		$("#newsletter_close").on("click", function(){
+			Page.newsletterHide();
 		});
 
 		$(window).on("resize", _.throttle(function (e) {
@@ -170,6 +185,26 @@ var Page = {
 			click.removeClass("expanded");
 			click.next(".menu_coll_hidden").css({"height":0});
 		}
+
+	},
+
+	newsletterShow: function () {
+
+		console.log("Page.newsletterShow");
+
+		// GET WRAPPER COLOUR
+		var bgColor = $("#wrapper").css("background-color");
+
+		$("#newsletter_hidden").css("background-color",bgColor).show();
+		$("#mc-embedded-subscribe:hover").css("color",bgColor);
+
+	},
+
+	newsletterHide: function () {
+
+		console.log("Page.newsletterHide");
+
+		$("#newsletter_hidden").hide();
 
 	},
 
@@ -325,6 +360,43 @@ var Page = {
 		console.log("Page.updateCart");
 
 		$(".update_cart").trigger("click");
+
+	},
+
+	createPlayer: function ( video ) {
+
+		console.log("Page.createPlayer", video);
+
+		var options = {
+				id: parseInt( video.attr("data-id") ), 
+			    autoplay: true,
+			    loop: true,
+			    portrait: false,
+			    title: false,
+			    byline: false
+			};
+		this.player = new Vimeo.Player( video, options );
+		this.player.setVolume(0);
+
+		this.player.ready().then(function() {
+			console.log('Player ready.');
+			if ( $("#landing_page").length ) {
+				Home.videoReady();
+			} else if ( $(".gallery").length ) {
+				Gallery.campaignVideoResize();
+			}
+			
+		});
+
+	    this.player.on("play", function() {
+	        console.log("Video playing.");
+	    });
+	    this.player.on("pause", function() {
+	    	console.log("Video paused.");
+	    });
+	    this.player.on("ended", function() {
+
+	    });
 
 	}
 

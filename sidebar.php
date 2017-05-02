@@ -75,10 +75,14 @@ function cpr_get_colls () {
 
 			<!-- NEWSLETTER -->
 			<p id="newsletter_wrapper">
+				<a href="" id="newsletter_link">Sign Up To Newsletter</a>
+			</p>
+			<div id="newsletter_hidden">
+				<img id="newsletter_close" src="<?php bloginfo('template_url'); ?>/img/close.svg" />
 				<?php 
 				// POPUP WINDOW ON CLICK
-				// mailchimp_form(); ?>
-			</p>
+				mailchimp_form(); ?>
+			</div>
 
 			<!-- TERMS AND CONDITIONS -->
 			<p class="menu_link">

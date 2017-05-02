@@ -65,7 +65,7 @@ body {
 
     @media ( max-width: 600px ) {
         html, body { 
-            font-size: 0.9em;
+            font-size: 0.95em;
         }
     }
 
@@ -253,7 +253,7 @@ ul, li {
 #menu_top_hidden {
     height: 0px;
     overflow: hidden;
-    background-color: rgba(255,255,255,0.8);
+    background-color: rgba(255,255,255,0.85);
     transition: height 1s;
     padding-left: 2.75%;
     font-size: 0.95em;
@@ -271,8 +271,8 @@ ul, li {
 
 #menu_social_media {
 /*    border: 1px solid green;*/
-    height: 40px;
-    margin: 12px 0;
+    height: 28px;
+    margin: 0 0 12px 0;
     display: inline-block;
 }
 
@@ -337,12 +337,20 @@ ul, li {
     pointer-events: none;
 }
 
+#secondary_nav {
+/*    border: 1px solid blue;*/
+}
+
 #secondary_nav li {
     pointer-events: auto; 
 }
 
 #secondary_nav ul {
     position: relative;
+}
+
+#secondary_nav #collection_filter {
+    position: fixed;
 }
 
 #secondary_nav .update_cart_bis {
@@ -458,8 +466,53 @@ ul, li {
     NEWSLETTER SIGNUP
 ************************************************/
 
+#newsletter_hidden {
+    border: 2px solid black;
+    position: fixed;
+    top: 50%;
+    left: 25%;
+    width: 50%;
+    height: auto;
+    transform: translateY(-50%);
+    font-size: 1.2em;
+    display: none;
+}
+
+#newsletter_hidden > div {
+    margin: 24px;
+}
+
+#newsletter_close {
+    position: absolute;
+    right: 12px;
+    top: -36px;
+    width: 36px;
+    height: 24px;
+    cursor: pointer;
+}
+
+#mc-embedded-subscribe:hover {
+    background-color: black;
+/*    color: #efebe8;*/
+    color: white;
+}
+
+#mce-EMAIL {
+    border: 2px solid;
+    padding: 6px;
+    margin-left: 8px;
+    width: 50%;
+}
+
+#mc_embed_signup div.mce_inline_error {
+    margin: 8px 0 !important;
+    padding: 0px !important;
+    background-color: transparent !important; 
+    color: black !important;
+}
+
+/*
 #mc_embed_signup {
-/*    border: 1px solid blue;*/
     width: 100%;
     height: 100%;
     position: absolute;
@@ -468,8 +521,6 @@ ul, li {
 }
 
 .mc-field-group {
-/*    border: 1px solid purple;*/
-/*    height: 60%;*/
     height: 48px;
     width: 50%;
     position: absolute;
@@ -503,7 +554,6 @@ ul, li {
     border: 2px solid black;
     display: inline-block;
     position: absolute;
-/*    height: 60%;*/
     height: 48px;
     width: 40%;
     right: 0;
@@ -581,14 +631,13 @@ ul, li {
 }
 
 #mce-success-response {
-/*    border: 1px solid blue;*/
     position: absolute;
     right: -60px;
     width: 0px;
     height: 0px;
     font-size: 0em;
     top: 0;
-}
+}*/
 
 /************************************************
     LANDING PAGE
@@ -615,7 +664,7 @@ ul, li {
 
     @media screen and ( max-aspect-ratio: 3/4 ), ( orientation : portrait ), ( max-width: 600px ) {
         #landing_page {
-            display: none;
+/*            display: none;*/
         }       
     }
 
@@ -623,6 +672,7 @@ ul, li {
 /*    border: 1px solid red;*/
     width: 100%;
     height: 100%;
+    overflow: hidden;
     position: absolute;
     top: 0;
     transition: opacity 2s;
@@ -637,11 +687,18 @@ ul, li {
 #landing_page li.visible .landing_link {
     pointer-events: auto;
 }
-/*
-.landing_link {
-    display: block;
+
+#landing_video {
+    width: 100%;
     height: 100%;
-}*/
+}
+
+#landing_page li iframe {
+    width: 100%;
+    height: 100%;
+    transition: all 0.5s;  
+    opacity: 0;  
+}
 
 .landing_page_title {
     font-family: VBLACK, Vonnes, helvetica, arial, sans-serif;  
@@ -666,7 +723,7 @@ ul, li {
     position: relative;
 }
 
-#landing_page video {
+/*#landing_page video {
     width: 100%;
     height: auto;
     position: absolute;
@@ -686,7 +743,7 @@ ul, li {
                 -ms-transform: translateX(-50%); 
                     transform: translateX(-50%);            
         }
-    }
+    }*/
 
 
 .blurred {
@@ -846,7 +903,7 @@ ul, li {
 /* ONE */
 
 [data-row="1"] {
-    width: 33.3333% !important;
+    width: 50% !important;
 }
 
 [data-row="1"] {
@@ -859,7 +916,8 @@ ul, li {
 /* TWO */
 
 [data-row="2"] {
-    width: 33.3333% !important;
+/*    width: 33.3333% !important;*/
+    width: 50% !important;
 }
 
 [data-row="2"]:nth-child(1) {
@@ -1386,10 +1444,14 @@ ul, li {
     margin-top: 2px;
     width: 100%;
     overflow: hidden;
-    padding-top: 4px;
+/*    padding-top: 4px;*/
     padding-bottom: 0px;
     transition: all 0.5s;
 
+}
+
+.product_desc li:first-child {
+    margin-top: 4px;
 }
 
 .other_colours_wrapper, 
@@ -1488,7 +1550,8 @@ ul, li {
 
 .no-touch .single_add_to_cart_button:hover {
     background-color: black !important;
-    color: #efebe8;
+/*    color: #efebe8;*/
+    color: white;
 }
 
     @media ( max-width: 1000px ) {
@@ -1760,6 +1823,10 @@ h4 {
     margin-bottom: 36px; 
 }
 
+#campaign_video {
+    height: 100%;
+}
+
 .news_images_wrapper {
 /*    border: 1px solid purple;*/
     overflow: hidden;
@@ -1816,6 +1883,14 @@ h4 {
     opacity: 0;
 }
 
+#single_campaign_images li {
+    pointer-events: none;
+}
+
+#single_campaign_images .campaign_video {
+    pointer-events: auto;
+}
+
 .campaign_image img {
     height: 100%;
     margin: 0 auto;
@@ -1854,8 +1929,8 @@ h4 {
         }
     }
 
-#single_news_left, #single_campaign_left {
-/*    border: 1px solid green;*/
+#single_news {
+    padding-top: 10vh;
 }
 
 #single_news_left p {
@@ -2095,7 +2170,8 @@ h4 {
 .no-touch #cart .button:hover,
 .no-touch #wwof_product_listing_container .button:hover {
     background-color: black;
-    color: #efebe8;
+/*    color: #efebe8;*/
+    color: white;
 }
 
 #cart input[type="number"] {
@@ -2428,14 +2504,16 @@ h4 {
     border: 2px solid black;
     display: block;
     margin: 0 auto 12px auto;
-    background-color: #efebe8;
+/*    background-color: #efebe8;*/
+    background-color: white;
     padding: 4px 8px 6px 8px;
     margin-top: 4px;
     font-size: 1em;
 }
 
 #wwof_product_listing_filter .button {
-    background-color: #efebe8;
+/*    background-color: #efebe8;*/
+    background-color: white;
 }
 
 #wwof_product_listing_container {
@@ -2458,7 +2536,8 @@ h4 {
     position: fixed;
     bottom: 0;
     left: 0;
-    background-color: #efebe8;
+/*    background-color: #efebe8;*/
+    background-color: white;
     height: 84px;
     transition: height 1s;
     width: 100%;

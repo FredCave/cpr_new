@@ -26,8 +26,11 @@
 	    					} else if ( get_field("news_images") ) {
 								// IMAGE
 								$images = get_field("news_images");
-								$image = $images[0]["news_image"];
-								cpr_image_object($image);
+								// CHECK IF ARRAY
+								if ( is_array ($images) ) {
+									$image = $images[0]["news_image"];
+									cpr_image_object($image,"");
+								} 	
 	    					} ?>
 	    				</div>
 	    				<!-- RIGHT COLUMN -->
@@ -39,7 +42,7 @@
 		    				<?php 
 		    				the_field("news_extract"); 
 		    				// CHECK IF MAIN TEXT OR IF MORE THAN ONE IMAGE
-		    				if ( get_field("news_main_text") || count($images) > 1 ) { ?>
+		    				if ( get_field("news_main_text") || count( get_field("news_images") ) > 1 ) { ?>
 		    					<a class="read_more" href="<?php the_permalink(); ?>">[See More...]</a>
 		    				<?php } ?>							
 		    				
@@ -110,6 +113,7 @@
 	    		</li><!-- END OF .NEWS_POST -->
 
 		    <?php endwhile;
+		    wp_reset_postdata();
 		    endif; ?>
     	</ul>
 

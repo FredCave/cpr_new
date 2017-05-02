@@ -7,11 +7,11 @@
 
 <div id="single_news" class="page page_margin">
 
-	<p class="page_link">
+	<!--<p class="page_link">
 		<a class="button" href="<?php bloginfo( 'url' ); ?>/culture/">
 			Back to Culture
 		</a>
-	</p>
+	</p>-->
 
 	<div id="single_news_left" class="news_left">
 			
@@ -23,7 +23,7 @@
 				while ( have_rows("news_images") ) : the_row("news_image"); ?>
 					<li>
 						<?php $image = get_sub_field("news_image");
-						cpr_image_object($image); ?>
+						cpr_image_object($image,""); ?>
 					</li>
 				<?php
 				endwhile;

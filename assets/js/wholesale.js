@@ -84,11 +84,11 @@ var Wholesale = {
 
 		// ADD TO CART
 		$(".custom_add_to_cart").on("click", function (e){
-			e.preventDefault();
+			// e.preventDefault();
 
-			console.log("Add to cart.");
+			// console.log("Add to cart.");
 
-			Wholesale.customAddToCart( $(this) );
+			// Wholesale.customAddToCart( $(this) );
 
 			// var itemId = $(this).parents(".variation_wrapper").attr("data-variation");
 			// Wholesale.ajaxQuantities( $(this), itemId );	
@@ -423,7 +423,7 @@ var Wholesale = {
 			quantity = parseInt( click.siblings(".quantity").find("input").val() ), 
 			variationSize = click.data("size");
 
-		// console.log( 426, productId, variationId, quantity, variationSize );
+		console.log( 426, productId, variationId, quantity, variationSize );
 
 		$.ajax({
 		    url: myAjax.ajaxurl,

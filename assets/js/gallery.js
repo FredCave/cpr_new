@@ -100,6 +100,25 @@ var Gallery = {
 			gallery.find("li").last().addClass("visible");		
 		}
 
-	}
+	},
+
+	campaignVideoResize: function () {
+            
+		console.log("Gallery.campaignVideoResize");
+
+        var video = $("#campaign_video iframe"),
+        	vidR = parseInt( video.attr("height") ) / parseInt( video.attr("width") ); // VIDEO RATIO
+			newH = ( $(".gallery").width() * vidR ) / $(".gallery").height() * 100;
+
+        console.log( 113, vidR, newH );
+
+        video.css({
+            "width": "100%",
+            "margin-left": "",
+            // "margin-top": 0 - ( this.winW * vidR - this.winH ),
+            "height": newH + "%"
+        });  
+
+    },
 
 }

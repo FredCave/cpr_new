@@ -42,8 +42,8 @@ function enqueue_cpr_scripts() {
     // STOPS WORDPRESS LOADING JQUERY
     wp_deregister_script( 'jquery' );
     // wp_register_script('jquery', '', '', '', true);
-    wp_register_script( 'jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js');
-    // wp_register_script( 'jquery', get_template_directory_uri() . '/js/jquery.min.js');
+    // wp_register_script( 'jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js');
+    wp_register_script( 'jquery', get_template_directory_uri() . '/js/_jquery.min.js');
     // wp_enqueue_script( 'jquery' );  
     
     wp_enqueue_script('all_scripts', get_template_directory_uri() . '/js/scripts.min.js', array('jquery'), true);
@@ -187,7 +187,9 @@ function cpr_set_bg ( $page_obj ) {
             // GET PARENT COLLECTION ID
             $page_id = $page_obj->term_id;
             $parent_cat = get_the_terms( $post->ID, 'product_cat' );
-            $cat_id = $parent_cat[0]->term_id;
+            $cat_id = $parent_cat[0]->term_id;        
+        } else if ( is_page( array( 'culture', 'information' ) ) ) {
+            $bg_color = "white";
         } else if ( is_home() ) {
             // GET LATEST COLLECTION
                 // GET ALL COLLECTIONS
@@ -214,6 +216,8 @@ function cpr_set_bg ( $page_obj ) {
             // $bg_color = "#efebe8";
             $bg_color = "white"; // DEFAULT
         } 
+    } else if ( is_page() ) {
+        $bg_color = "white"; // DEFAULT
     }
     return $bg_color;
 }

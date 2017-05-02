@@ -11,6 +11,10 @@ var Single = {
 
 		this.slideShowCheck();
 
+		// CHANGE COLOUR OF PRODUCT DESC
+		var color = $("#wrapper").css("background-color");
+		$(".product_desc").css("background-color", color);
+
 	},
 
 	bindEvents: function () {

@@ -20,26 +20,37 @@
 	</p>
 
 	<div id="single_campaign_left" class="news_left">
+		<ul id="single_campaign_images" class="gallery">
 		<!-- VIDEO -->
-		<?php if ( get_field("video") ) { ?>
-		   	<div class="campaign_video">
-				<?php the_field("video"); ?>		
-		   	</div>
+		<?php 
+		if ( get_field("video") ) : ?>
+		   	<li class="campaign_video">
+				<?php 
+				$video = get_field("video");
+				// IF IT CONTAINS DELIMITER
+				if ( strpos($video, 'video/') !== false ) {
+					$video_str = explode('video/', $video)[1];
+					$video_id = explode('" width', $video_str)[0];
+				} else {
+					$video_str = explode('vimeo.com/', $video)[1];
+					$video_id = explode('"', $video_str)[0];
+				}
+				?>
+				<div id="campaign_video" data-id="<?php echo $video_id; ?>"></div>
+				<script src="https://player.vimeo.com/api/player.js"></script> 	
+		   	</li>
 		<!-- IMAGES -->
-	   	<?php } else if ( have_rows("images") ) : ?>		   		
-	   		<ul id="single_campaign_images" class="gallery">
-		   		<?php if ( have_rows("images") ) {
-					while ( have_rows("images") ) : the_row("image"); ?>
-					<?php $image = get_sub_field("image");
-						if( !empty($image) ): ?>
-							<li><?php cpr_image_object($image); ?></li>
-						<?php
-						endif;
-					endwhile;
-				} ?>
-		   	</ul>
-		<?php endif; ?>
-
+	   	<?php endif;  
+	   	if ( have_rows("images") ) : 	   		
+			while ( have_rows("images") ) : the_row("image"); ?>
+			<?php $image = get_sub_field("image");
+				if( !empty($image) ): ?>
+					<li><?php cpr_image_object($image, ""); ?></li>
+				<?php
+				endif;
+			endwhile;
+		endif; ?>
+		</ul>
 	</div>
 
 	<div id="single_campaign_right" class="news_right">
